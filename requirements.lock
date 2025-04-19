@@ -58,8 +58,6 @@ certifi==2025.1.31
     # via httpx
 click==8.1.8
     # via granian
-colorama==0.4.6
-    # via click
 dependency-injector==4.46.0
     # via backend-template
 dnspython==2.7.0
@@ -171,8 +169,6 @@ typing-extensions==4.13.2
 typing-inspection==0.4.0
     # via pydantic
     # via pydantic-settings
-tzdata==2025.2
-    # via psycopg
 urllib3==2.4.0
     # via botocore
 watchfiles==1.0.5

@@ -4,6 +4,7 @@ from typing import Protocol
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.adapters.database.repositories import (
+    AnimeRepository,
     ClientRepository,
     EmailTemplateRepository,
     ManagerRepository,
@@ -18,6 +19,7 @@ class RepositoriesGatewayProtocol(Protocol):
     news: NewsRepository
     news_content: NewsContentRepository
     email_template: EmailTemplateRepository
+    anime: AnimeRepository
 
     @abstractmethod
     def __init__(self, session: AsyncSession):

@@ -1,6 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.adapters.database.repositories import (
+    AnimeRepository,
     ClientRepository,
     EmailTemplateRepository,
     ManagerRepository,
@@ -17,3 +18,4 @@ class RepositoriesGateway(RepositoriesGatewayProtocol):
         self.news = NewsRepository(session)
         self.news_content = NewsContentRepository(session)
         self.email_template = EmailTemplateRepository(session)
+        self.anime = AnimeRepository(session)
