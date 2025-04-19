@@ -2,7 +2,7 @@ from fastadmin import WidgetType, register
 
 from src.adapters.database.models import Episode
 from src.adapters.database.repositories import EpisodeRepository
-from src.admin.override_fastadmin import CustomModelAdmin
+from src.admin.override_fastadmin import CustomColumn, CustomModelAdmin
 from src.schemas.admin.episode import (
     EpisodeCreate,
     EpisodeGet,
@@ -21,10 +21,21 @@ class EpisodeAdmin(CustomModelAdmin):
     schemaList = EpisodeList
 
     model_repository = EpisodeRepository
+    custom_columns = [
+        CustomColumn(
+            column_name="аниме и сезон",
+            join_field=Episode.season,
+            get_new_value=(lambda record: str(record.season)),
+            filter={
+                "exact": lambda value: Episode.season.ilike(f"%{value}%"),
+                "icontains": lambda value: Episode.season.ilike(f"%{value}%"),
+            },
+        ),
+    ]
 
-    list_display = ("number", "name")
+    list_display = ("аниме и сезон", "number", "name")
     list_display_links = ("number",)
-    list_filter = ("number", "name")
+    list_filter = ("аниме и сезон", "number", "name")
 
     search_fields = ("number", "name")
 
