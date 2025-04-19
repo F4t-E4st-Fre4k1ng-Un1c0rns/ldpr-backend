@@ -24,7 +24,7 @@ jobs:
           script: |
             cd /home/matv864
             date >> ci_cd_notes.txt
-            cd mpit-site
+            cd ldpr-backend
             git restore .
             git pull
             docker compose up -d --build

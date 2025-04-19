@@ -58,6 +58,20 @@ CREATE TABLE public.alembic_version (
 ALTER TABLE public.alembic_version OWNER TO hello;
 
 --
+-- Name: anime; Type: TABLE; Schema: public; Owner: hello
+--
+
+CREATE TABLE public.anime (
+    id character varying NOT NULL,
+    name character varying(50) NOT NULL,
+    description character varying NOT NULL,
+    poster_path character varying NOT NULL
+);
+
+
+ALTER TABLE public.anime OWNER TO hello;
+
+--
 -- Name: clients; Type: TABLE; Schema: public; Owner: hello
 --
 
@@ -136,6 +150,43 @@ ALTER SEQUENCE public."emailTemplates_id_seq" OWNER TO hello;
 --
 
 ALTER SEQUENCE public."emailTemplates_id_seq" OWNED BY public."emailTemplates".id;
+
+
+--
+-- Name: episodes; Type: TABLE; Schema: public; Owner: hello
+--
+
+CREATE TABLE public.episodes (
+    id integer NOT NULL,
+    season_id integer NOT NULL,
+    number integer NOT NULL,
+    name character varying NOT NULL,
+    path character varying NOT NULL
+);
+
+
+ALTER TABLE public.episodes OWNER TO hello;
+
+--
+-- Name: episodes_id_seq; Type: SEQUENCE; Schema: public; Owner: hello
+--
+
+CREATE SEQUENCE public.episodes_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.episodes_id_seq OWNER TO hello;
+
+--
+-- Name: episodes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: hello
+--
+
+ALTER SEQUENCE public.episodes_id_seq OWNED BY public.episodes.id;
 
 
 --
@@ -252,6 +303,41 @@ ALTER SEQUENCE public.news_id_seq OWNED BY public.news.id;
 
 
 --
+-- Name: seasons; Type: TABLE; Schema: public; Owner: hello
+--
+
+CREATE TABLE public.seasons (
+    id integer NOT NULL,
+    anime_id character varying NOT NULL,
+    number integer NOT NULL
+);
+
+
+ALTER TABLE public.seasons OWNER TO hello;
+
+--
+-- Name: seasons_id_seq; Type: SEQUENCE; Schema: public; Owner: hello
+--
+
+CREATE SEQUENCE public.seasons_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.seasons_id_seq OWNER TO hello;
+
+--
+-- Name: seasons_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: hello
+--
+
+ALTER SEQUENCE public.seasons_id_seq OWNED BY public.seasons.id;
+
+
+--
 -- Name: clients id; Type: DEFAULT; Schema: public; Owner: hello
 --
 
@@ -263,6 +349,13 @@ ALTER TABLE ONLY public.clients ALTER COLUMN id SET DEFAULT nextval('public.clie
 --
 
 ALTER TABLE ONLY public."emailTemplates" ALTER COLUMN id SET DEFAULT nextval('public."emailTemplates_id_seq"'::regclass);
+
+
+--
+-- Name: episodes id; Type: DEFAULT; Schema: public; Owner: hello
+--
+
+ALTER TABLE ONLY public.episodes ALTER COLUMN id SET DEFAULT nextval('public.episodes_id_seq'::regclass);
 
 
 --
@@ -287,10 +380,23 @@ ALTER TABLE ONLY public."newsContents" ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
+-- Name: seasons id; Type: DEFAULT; Schema: public; Owner: hello
+--
+
+ALTER TABLE ONLY public.seasons ALTER COLUMN id SET DEFAULT nextval('public.seasons_id_seq'::regclass);
+
+
+--
 -- Data for Name: alembic_version; Type: TABLE DATA; Schema: public; Owner: hello
 --
 
-INSERT INTO public.alembic_version (version_num) VALUES ('fd99dc0581bc');
+INSERT INTO public.alembic_version (version_num) VALUES ('fee61c3b066c');
+
+
+--
+-- Data for Name: anime; Type: TABLE DATA; Schema: public; Owner: hello
+--
+
 
 
 --
@@ -298,10 +404,18 @@ INSERT INTO public.alembic_version (version_num) VALUES ('fd99dc0581bc');
 --
 
 INSERT INTO public.clients (id, client_type, phone, password, manager_id, first_name, second_name, email, city, address, organization_name, inn, create_date, modify_date) VALUES (4, 'individ', '1', '$2b$12$RvdIgjtAphGXMjGcXY6RG.kC.Th83/bZ3AzjVm.SDUFDPxHgJYeJ.', 1, '1', '1', '1@gmail.com', 'Vladivostok', 'good', NULL, NULL, '2025-04-18 13:51:11.916+00', '2025-05-18 13:51:39.092+00');
+INSERT INTO public.clients (id, client_type, phone, password, manager_id, first_name, second_name, email, city, address, organization_name, inn, create_date, modify_date) VALUES (5, 'individ', '79871234567', '$2b$12$nyhbFfOvV9o.oVdqBsTyQePH4n0znUiG94r/bI276/lTCG05lkMBK', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-04-18 14:02:43.677661+00', '2025-04-18 14:02:43.677661+00');
 
 
 --
 -- Data for Name: emailTemplates; Type: TABLE DATA; Schema: public; Owner: hello
+--
+
+INSERT INTO public."emailTemplates" (id, type, title, text) VALUES (1, 0, 'простое письмо', 'простое письмо');
+
+
+--
+-- Data for Name: episodes; Type: TABLE DATA; Schema: public; Owner: hello
 --
 
 
@@ -317,10 +431,19 @@ INSERT INTO public.managers (role, first_name, second_name, phone, email, passwo
 -- Data for Name: news; Type: TABLE DATA; Schema: public; Owner: hello
 --
 
+INSERT INTO public.news (id, title, text, publish_date, images) VALUES (1, 'простая новость', '<p>текст новости примерно такой</p>', '2025-04-18 14:05:07.536595+00', NULL);
 
 
 --
 -- Data for Name: newsContents; Type: TABLE DATA; Schema: public; Owner: hello
+--
+
+INSERT INTO public."newsContents" (news_id, id, name, uri, comment, create_date, modify_date) VALUES (1, 1, 'a', '06bf03ffcdcc4a3e87014bc5362bee69.jpg', NULL, '2025-04-18 14:05:08.772959+00', '2025-04-18 14:05:08.772959+00');
+INSERT INTO public."newsContents" (news_id, id, name, uri, comment, create_date, modify_date) VALUES (1, 2, 'a', '5c7d0122f8db4fb084d200743ac46da4.png', NULL, '2025-04-18 14:05:09.303016+00', '2025-04-18 14:05:09.303016+00');
+
+
+--
+-- Data for Name: seasons; Type: TABLE DATA; Schema: public; Owner: hello
 --
 
 
@@ -329,14 +452,21 @@ INSERT INTO public.managers (role, first_name, second_name, phone, email, passwo
 -- Name: clients_id_seq; Type: SEQUENCE SET; Schema: public; Owner: hello
 --
 
-SELECT pg_catalog.setval('public.clients_id_seq', 4, true);
+SELECT pg_catalog.setval('public.clients_id_seq', 5, true);
 
 
 --
 -- Name: emailTemplates_id_seq; Type: SEQUENCE SET; Schema: public; Owner: hello
 --
 
-SELECT pg_catalog.setval('public."emailTemplates_id_seq"', 1, false);
+SELECT pg_catalog.setval('public."emailTemplates_id_seq"', 1, true);
+
+
+--
+-- Name: episodes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: hello
+--
+
+SELECT pg_catalog.setval('public.episodes_id_seq', 1, false);
 
 
 --
@@ -350,14 +480,21 @@ SELECT pg_catalog.setval('public.managers_id_seq', 1, true);
 -- Name: newsContents_id_seq; Type: SEQUENCE SET; Schema: public; Owner: hello
 --
 
-SELECT pg_catalog.setval('public."newsContents_id_seq"', 1, false);
+SELECT pg_catalog.setval('public."newsContents_id_seq"', 2, true);
 
 
 --
 -- Name: news_id_seq; Type: SEQUENCE SET; Schema: public; Owner: hello
 --
 
-SELECT pg_catalog.setval('public.news_id_seq', 1, false);
+SELECT pg_catalog.setval('public.news_id_seq', 1, true);
+
+
+--
+-- Name: seasons_id_seq; Type: SEQUENCE SET; Schema: public; Owner: hello
+--
+
+SELECT pg_catalog.setval('public.seasons_id_seq', 1, false);
 
 
 --
@@ -366,6 +503,14 @@ SELECT pg_catalog.setval('public.news_id_seq', 1, false);
 
 ALTER TABLE ONLY public.alembic_version
     ADD CONSTRAINT alembic_version_pkc PRIMARY KEY (version_num);
+
+
+--
+-- Name: anime anime_pkey; Type: CONSTRAINT; Schema: public; Owner: hello
+--
+
+ALTER TABLE ONLY public.anime
+    ADD CONSTRAINT anime_pkey PRIMARY KEY (id);
 
 
 --
@@ -409,6 +554,14 @@ ALTER TABLE ONLY public."emailTemplates"
 
 
 --
+-- Name: episodes episodes_pkey; Type: CONSTRAINT; Schema: public; Owner: hello
+--
+
+ALTER TABLE ONLY public.episodes
+    ADD CONSTRAINT episodes_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: managers managers_phone_key; Type: CONSTRAINT; Schema: public; Owner: hello
 --
 
@@ -441,6 +594,14 @@ ALTER TABLE ONLY public.news
 
 
 --
+-- Name: seasons seasons_pkey; Type: CONSTRAINT; Schema: public; Owner: hello
+--
+
+ALTER TABLE ONLY public.seasons
+    ADD CONSTRAINT seasons_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: clients clients_manager_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: hello
 --
 
@@ -449,11 +610,27 @@ ALTER TABLE ONLY public.clients
 
 
 --
+-- Name: episodes episodes_season_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: hello
+--
+
+ALTER TABLE ONLY public.episodes
+    ADD CONSTRAINT episodes_season_id_fkey FOREIGN KEY (season_id) REFERENCES public.seasons(id);
+
+
+--
 -- Name: newsContents newsContents_news_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: hello
 --
 
 ALTER TABLE ONLY public."newsContents"
     ADD CONSTRAINT "newsContents_news_id_fkey" FOREIGN KEY (news_id) REFERENCES public.news(id);
+
+
+--
+-- Name: seasons seasons_anime_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: hello
+--
+
+ALTER TABLE ONLY public.seasons
+    ADD CONSTRAINT seasons_anime_id_fkey FOREIGN KEY (anime_id) REFERENCES public.anime(id);
 
 
 --
