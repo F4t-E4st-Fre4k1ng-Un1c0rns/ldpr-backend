@@ -62,7 +62,7 @@ ALTER TABLE public.alembic_version OWNER TO hello;
 --
 
 CREATE TABLE public.anime (
-    id character varying NOT NULL,
+    id integer NOT NULL,
     name character varying(50) NOT NULL,
     description character varying NOT NULL,
     poster_path character varying NOT NULL
@@ -70,6 +70,28 @@ CREATE TABLE public.anime (
 
 
 ALTER TABLE public.anime OWNER TO hello;
+
+--
+-- Name: anime_id_seq; Type: SEQUENCE; Schema: public; Owner: hello
+--
+
+CREATE SEQUENCE public.anime_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.anime_id_seq OWNER TO hello;
+
+--
+-- Name: anime_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: hello
+--
+
+ALTER SEQUENCE public.anime_id_seq OWNED BY public.anime.id;
+
 
 --
 -- Name: clients; Type: TABLE; Schema: public; Owner: hello
@@ -308,7 +330,7 @@ ALTER SEQUENCE public.news_id_seq OWNED BY public.news.id;
 
 CREATE TABLE public.seasons (
     id integer NOT NULL,
-    anime_id character varying NOT NULL,
+    anime_id integer NOT NULL,
     number integer NOT NULL
 );
 
@@ -335,6 +357,13 @@ ALTER SEQUENCE public.seasons_id_seq OWNER TO hello;
 --
 
 ALTER SEQUENCE public.seasons_id_seq OWNED BY public.seasons.id;
+
+
+--
+-- Name: anime id; Type: DEFAULT; Schema: public; Owner: hello
+--
+
+ALTER TABLE ONLY public.anime ALTER COLUMN id SET DEFAULT nextval('public.anime_id_seq'::regclass);
 
 
 --
@@ -390,76 +419,94 @@ ALTER TABLE ONLY public.seasons ALTER COLUMN id SET DEFAULT nextval('public.seas
 -- Data for Name: alembic_version; Type: TABLE DATA; Schema: public; Owner: hello
 --
 
-INSERT INTO public.alembic_version (version_num) VALUES ('fee61c3b066c');
+COPY public.alembic_version (version_num) FROM stdin;
+72aecf9c7a54
+\.
 
 
 --
 -- Data for Name: anime; Type: TABLE DATA; Schema: public; Owner: hello
 --
 
+COPY public.anime (id, name, description, poster_path) FROM stdin;
+\.
 
 
 --
 -- Data for Name: clients; Type: TABLE DATA; Schema: public; Owner: hello
 --
 
-INSERT INTO public.clients (id, client_type, phone, password, manager_id, first_name, second_name, email, city, address, organization_name, inn, create_date, modify_date) VALUES (4, 'individ', '1', '$2b$12$RvdIgjtAphGXMjGcXY6RG.kC.Th83/bZ3AzjVm.SDUFDPxHgJYeJ.', 1, '1', '1', '1@gmail.com', 'Vladivostok', 'good', NULL, NULL, '2025-04-18 13:51:11.916+00', '2025-05-18 13:51:39.092+00');
-INSERT INTO public.clients (id, client_type, phone, password, manager_id, first_name, second_name, email, city, address, organization_name, inn, create_date, modify_date) VALUES (5, 'individ', '79871234567', '$2b$12$nyhbFfOvV9o.oVdqBsTyQePH4n0znUiG94r/bI276/lTCG05lkMBK', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-04-18 14:02:43.677661+00', '2025-04-18 14:02:43.677661+00');
+COPY public.clients (id, client_type, phone, password, manager_id, first_name, second_name, email, city, address, organization_name, inn, create_date, modify_date) FROM stdin;
+\.
 
 
 --
 -- Data for Name: emailTemplates; Type: TABLE DATA; Schema: public; Owner: hello
 --
 
-INSERT INTO public."emailTemplates" (id, type, title, text) VALUES (1, 0, 'простое письмо', 'простое письмо');
+COPY public."emailTemplates" (id, type, title, text) FROM stdin;
+\.
 
 
 --
 -- Data for Name: episodes; Type: TABLE DATA; Schema: public; Owner: hello
 --
 
+COPY public.episodes (id, season_id, number, name, path) FROM stdin;
+\.
 
 
 --
 -- Data for Name: managers; Type: TABLE DATA; Schema: public; Owner: hello
 --
 
-INSERT INTO public.managers (role, first_name, second_name, phone, email, password, id) VALUES ('admin', '1', '1', '1', '1@gmail.com', '$2b$12$RvdIgjtAphGXMjGcXY6RG.kC.Th83/bZ3AzjVm.SDUFDPxHgJYeJ.', 1);
+COPY public.managers (role, first_name, second_name, phone, email, password, id) FROM stdin;
+\.
 
 
 --
 -- Data for Name: news; Type: TABLE DATA; Schema: public; Owner: hello
 --
 
-INSERT INTO public.news (id, title, text, publish_date, images) VALUES (1, 'простая новость', '<p>текст новости примерно такой</p>', '2025-04-18 14:05:07.536595+00', NULL);
+COPY public.news (id, title, text, publish_date, images) FROM stdin;
+\.
 
 
 --
 -- Data for Name: newsContents; Type: TABLE DATA; Schema: public; Owner: hello
 --
 
-INSERT INTO public."newsContents" (news_id, id, name, uri, comment, create_date, modify_date) VALUES (1, 1, 'a', '06bf03ffcdcc4a3e87014bc5362bee69.jpg', NULL, '2025-04-18 14:05:08.772959+00', '2025-04-18 14:05:08.772959+00');
-INSERT INTO public."newsContents" (news_id, id, name, uri, comment, create_date, modify_date) VALUES (1, 2, 'a', '5c7d0122f8db4fb084d200743ac46da4.png', NULL, '2025-04-18 14:05:09.303016+00', '2025-04-18 14:05:09.303016+00');
+COPY public."newsContents" (news_id, id, name, uri, comment, create_date, modify_date) FROM stdin;
+\.
 
 
 --
 -- Data for Name: seasons; Type: TABLE DATA; Schema: public; Owner: hello
 --
 
+COPY public.seasons (id, anime_id, number) FROM stdin;
+\.
+
+
+--
+-- Name: anime_id_seq; Type: SEQUENCE SET; Schema: public; Owner: hello
+--
+
+SELECT pg_catalog.setval('public.anime_id_seq', 1, false);
 
 
 --
 -- Name: clients_id_seq; Type: SEQUENCE SET; Schema: public; Owner: hello
 --
 
-SELECT pg_catalog.setval('public.clients_id_seq', 5, true);
+SELECT pg_catalog.setval('public.clients_id_seq', 1, false);
 
 
 --
 -- Name: emailTemplates_id_seq; Type: SEQUENCE SET; Schema: public; Owner: hello
 --
 
-SELECT pg_catalog.setval('public."emailTemplates_id_seq"', 1, true);
+SELECT pg_catalog.setval('public."emailTemplates_id_seq"', 1, false);
 
 
 --
@@ -473,21 +520,21 @@ SELECT pg_catalog.setval('public.episodes_id_seq', 1, false);
 -- Name: managers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: hello
 --
 
-SELECT pg_catalog.setval('public.managers_id_seq', 1, true);
+SELECT pg_catalog.setval('public.managers_id_seq', 1, false);
 
 
 --
 -- Name: newsContents_id_seq; Type: SEQUENCE SET; Schema: public; Owner: hello
 --
 
-SELECT pg_catalog.setval('public."newsContents_id_seq"', 2, true);
+SELECT pg_catalog.setval('public."newsContents_id_seq"', 1, false);
 
 
 --
 -- Name: news_id_seq; Type: SEQUENCE SET; Schema: public; Owner: hello
 --
 
-SELECT pg_catalog.setval('public.news_id_seq', 1, true);
+SELECT pg_catalog.setval('public.news_id_seq', 1, false);
 
 
 --

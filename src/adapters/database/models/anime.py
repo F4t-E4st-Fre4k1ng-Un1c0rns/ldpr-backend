@@ -8,7 +8,7 @@ from .base import Base
 
 class Anime(Base):
     __tablename__ = "anime"
-    id: Mapped[str] = mapped_column(primary_key=True)
+    id: Mapped[int] = mapped_column(primary_key=True,autoincrement=True)
 
     name: Mapped[str] = mapped_column(String(50))
     description: Mapped[str]
@@ -21,13 +21,13 @@ class Anime(Base):
 class Season(Base):
     __tablename__ = "seasons"
 
-    id: Mapped[int] = mapped_column(primary_key=True)
+    id: Mapped[int] = mapped_column(primary_key=True,autoincrement=True)
     anime_id: Mapped[str] = mapped_column(ForeignKey(Anime.id))
     number: Mapped[int]
 
 class Episode(Base):
     __tablename__ = "episodes"
-    id: Mapped[int] = mapped_column(primary_key=True)
+    id: Mapped[int] = mapped_column(primary_key=True,autoincrement=True)
     season_id: Mapped[int] = mapped_column(ForeignKey(Season.id))
     number: Mapped[int]
     name: Mapped[str]

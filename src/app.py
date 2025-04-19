@@ -3,7 +3,7 @@ from fastapi import APIRouter, FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.responses import JSONResponse
 
-from src.api import authentication_router, client_router, news_router
+from src.api import authentication_router, client_router, news_router, anime_router
 from src.utils.exceptions import ResultNotFound
 
 app = FastAPI(
@@ -24,6 +24,7 @@ main_app_router = APIRouter(prefix="/api")
 main_app_router.include_router(authentication_router, tags=["Authentication"])
 main_app_router.include_router(client_router, tags=["Clients"])
 main_app_router.include_router(news_router, tags=["News"])
+main_app_router.include_router(anime_router, tags=["Anime"])
 
 app.include_router(main_app_router)
 
