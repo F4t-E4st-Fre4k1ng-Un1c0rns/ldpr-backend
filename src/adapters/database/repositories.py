@@ -1,3 +1,4 @@
+from adapters.database.models.anime import Anime
 from sqlalchemy import asc, desc, select
 
 from src.adapters.database.models.managers import Role
@@ -56,3 +57,15 @@ class NewsContentRepository(SQLAlchemyRepository):
 
 class EmailTemplateRepository(SQLAlchemyRepository):
     model = EmailTemplate
+
+class AnimeRepository(SQLAlchemyRepository):
+    model = Anime
+
+    async def list_anime(self) -> list[Anime]:
+        stmt = (
+            select(self.model)
+            .order_by(desc(self.model.id))
+        )
+        res = await self.session.execute(stmt)
+        return list(res.unique().scalars().fetchall())
+        
