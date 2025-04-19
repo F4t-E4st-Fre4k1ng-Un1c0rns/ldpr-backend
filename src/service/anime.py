@@ -14,16 +14,16 @@ class AnimeService:
         return AnimeOutput(
             items=[
                 AnimeInfo(
-                    name=i.name,
-                    description=i.description,
-                    poster_path=i.poster_path,
+                    name=anime_model.name,
+                    description=anime_model.description,
+                    poster_path=anime_model.poster_path,
                     seasons=[
-                        AnimeSeasons(id=i.id, number=i.number)
-                        for i in await self.uow.repositories.seasons.list_seasons(
-                            models.id
+                        AnimeSeasons(id=season_model.id, number=season_model.number)
+                        for season_model in await self.uow.repositories.seasons.list_seasons(
+                            anime_model.id
                         )
                     ],
                 )
-                for i in models
+                for anime_model in models
             ]
         )
