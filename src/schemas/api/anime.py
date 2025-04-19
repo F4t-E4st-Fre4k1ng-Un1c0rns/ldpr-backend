@@ -21,6 +21,7 @@ class AnimeInfo(BaseModel):
         populate_by_name=True,
     )
 
+    id: int
     name: str
     description: str
     poster_path: str

@@ -14,6 +14,7 @@ class AnimeService:
         return AnimeOutput(
             items=[
                 AnimeInfo(
+                    id=anime_model.id,
                     name=anime_model.name,
                     description=anime_model.description,
                     poster_path=anime_model.poster_path,
