@@ -19,7 +19,7 @@ class SeasonGet(BaseModel):
 
 
 class SeasonList(BaseModel):
-    id: str
+    id: int
     number: int
     anime_id: int
 

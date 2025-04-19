@@ -22,18 +22,20 @@ class EpisodeAdmin(CustomModelAdmin):
 
     model_repository = EpisodeRepository
 
-    list_display = ("season_id", "number", "name")
+    list_display = ("number", "name")
     list_display_links = ("number",)
-    list_filter = ("season_id", "number", "name")
+    list_filter = ("number", "name")
 
-    search_fields = ("season_id", "number", "name")
+    search_fields = ("number", "name")
+
+    raw_id_fields = ("season_id",)
 
     fieldsets = (
         (
             None,
             {
                 "fields": (
-                    "season_id",
+                    "season",
                     "number",
                     "name",
                     "path"
@@ -42,7 +44,6 @@ class EpisodeAdmin(CustomModelAdmin):
         ),
     )
     formfield_overrides = {
-        "season_id": (WidgetType.InputNumber, {"required": True}),
         "number": (WidgetType.InputNumber, {"required": True}),
         "name": (WidgetType.Input, {"required": True}),
         "path": (WidgetType.Input, {"required": True}),
