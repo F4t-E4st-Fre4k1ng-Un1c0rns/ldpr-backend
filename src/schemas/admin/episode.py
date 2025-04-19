@@ -25,7 +25,7 @@ class EpisodeGet(BaseModel):
 
 
 class EpisodeList(BaseModel):
-    id: str
+    id: int
     number: int
     season_id: int
     name: str
