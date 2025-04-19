@@ -13,6 +13,7 @@ class Anime(Base):
     name: Mapped[str] = mapped_column(String(50))
     description: Mapped[str]
     poster_path: Mapped[str]
+    seasons: Mapped["Season"] = relationship()
 
     def __str__(self):
         return f"{self.name}"

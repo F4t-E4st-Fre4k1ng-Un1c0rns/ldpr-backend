@@ -20,6 +20,5 @@ class SeasonInfo(BaseModel):
         from_attributes=True,
         populate_by_name=True,
     )
-
+    id: int
     number: int
-
