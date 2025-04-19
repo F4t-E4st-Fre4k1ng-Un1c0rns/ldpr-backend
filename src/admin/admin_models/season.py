@@ -1,8 +1,8 @@
 from fastadmin import WidgetType, register
 
-from src.adapters.database.models import Season
+from src.adapters.database.models import Anime, Season
 from src.adapters.database.repositories import SeasonRepository
-from src.admin.override_fastadmin import CustomModelAdmin
+from src.admin.override_fastadmin import CustomColumn, CustomModelAdmin
 from src.schemas.admin.season import (
     SeasonCreate,
     SeasonGet,
@@ -21,10 +21,21 @@ class SeasonAdmin(CustomModelAdmin):
     schemaList = SeasonList
 
     model_repository = SeasonRepository
+    custom_columns = [
+        CustomColumn(
+            column_name="аниме",
+            join_field=Season.anime,
+            get_new_value=(lambda record: str(record.anime)),
+            filter={
+                "exact": lambda value: Anime.name.ilike(f"%{value}%"),
+                "icontains": lambda value: Anime.name.ilike(f"%{value}%"),
+            },
+        ),
+    ]
 
-    list_display = ("number",)
+    list_display = ("аниме", "number")
     list_display_links = ("number",)
-    list_filter = ("number",)
+    list_filter = ("аниме", "number")
 
     search_fields = ("number",)
 

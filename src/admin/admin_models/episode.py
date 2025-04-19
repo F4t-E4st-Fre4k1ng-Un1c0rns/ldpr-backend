@@ -1,6 +1,6 @@
 from fastadmin import WidgetType, register
 
-from src.adapters.database.models import Episode
+from src.adapters.database.models import Episode, Season
 from src.adapters.database.repositories import EpisodeRepository
 from src.admin.override_fastadmin import CustomColumn, CustomModelAdmin
 from src.schemas.admin.episode import (
@@ -27,8 +27,8 @@ class EpisodeAdmin(CustomModelAdmin):
             join_field=Episode.season,
             get_new_value=(lambda record: str(record.season)),
             filter={
-                "exact": lambda value: Episode.season.ilike(f"%{value}%"),
-                "icontains": lambda value: Episode.season.ilike(f"%{value}%"),
+                "exact": lambda value: Season.number.ilike(f"%{value}%"),
+                "icontains": lambda value: Season.number.ilike(f"%{value}%"),
             },
         ),
     ]
