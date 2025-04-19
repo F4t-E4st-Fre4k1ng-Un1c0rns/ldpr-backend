@@ -1,10 +1,10 @@
 from typing import Annotated
 
 from fastapi import APIRouter, Depends
-from schemas.api.anime import AnimeOutput
-from schemas.api.seasons import SeasonOutput
-from service.anime import AnimeService
-from service.seasons import SeasonService
+from src.schemas.api.anime import AnimeOutput
+from src.schemas.api.seasons import SeasonOutput
+from src.service.anime import AnimeService
+from src.service.seasons import SeasonService
 
 from src.unit_of_work import UnitOfWork
 

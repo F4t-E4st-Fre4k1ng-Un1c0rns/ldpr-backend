@@ -25,7 +25,7 @@ class AnimeInfo(BaseModel):
     description: str
     poster_path: str
 
-    @field_validator("banner_path")
+    @field_validator("poster_path")
     @classmethod
     def make_url(cls, banner_path: str) -> str:
         return settings.s3_url + banner_path

@@ -1,4 +1,4 @@
-from schemas.api.anime import AnimeInfo, AnimeOutput
+from src.schemas.api.anime import AnimeInfo, AnimeOutput
 from src.unit_of_work import UnitOfWork
 
 

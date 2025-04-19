@@ -1,4 +1,4 @@
-from schemas.api.seasons import SeasonOutput, SeasonInfo
+from src.schemas.api.seasons import SeasonOutput, SeasonInfo
 from src.unit_of_work import UnitOfWork
 
 

@@ -7,7 +7,7 @@ from src.adapters.database.repositories import (
     ManagerRepository,
     NewsContentRepository,
     NewsRepository,
-    SeasonsRepository,
+    SeasonRepository,
 )
 from src.utils.repositories_gateway import RepositoriesGatewayProtocol
 

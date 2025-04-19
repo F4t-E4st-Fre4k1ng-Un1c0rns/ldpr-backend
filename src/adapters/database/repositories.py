@@ -1,6 +1,6 @@
-from adapters.database.models.anime import Anime, Season
 from sqlalchemy import asc, desc, select
 
+from src.adapters.database.models.anime import Anime, Season
 from src.adapters.database.models.managers import Role
 from src.utils.repository import (
     SQLAlchemyRepository,
