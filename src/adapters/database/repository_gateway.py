@@ -7,6 +7,7 @@ from src.adapters.database.repositories import (
     ManagerRepository,
     NewsContentRepository,
     NewsRepository,
+    SeasonsRepository,
 )
 from src.utils.repositories_gateway import RepositoriesGatewayProtocol
 
@@ -19,3 +20,4 @@ class RepositoriesGateway(RepositoriesGatewayProtocol):
         self.news_content = NewsContentRepository(session)
         self.email_template = EmailTemplateRepository(session)
         self.anime = AnimeRepository(session)
+        self.seasons = SeasonRepository(session)

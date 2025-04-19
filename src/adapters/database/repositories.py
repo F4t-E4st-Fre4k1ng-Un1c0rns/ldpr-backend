@@ -1,4 +1,4 @@
-from adapters.database.models.anime import Anime
+from adapters.database.models.anime import Anime, Season
 from sqlalchemy import asc, desc, select
 
 from src.adapters.database.models.managers import Role
@@ -64,6 +64,19 @@ class AnimeRepository(SQLAlchemyRepository):
     async def list_anime(self) -> list[Anime]:
         stmt = (
             select(self.model)
+            .order_by(desc(self.model.id))
+        )
+        res = await self.session.execute(stmt)
+        return list(res.unique().scalars().fetchall())
+        
+
+class SeasonRepository(SQLAlchemyRepository):
+    model = Season
+
+    async def list_seasons(self, anime_id: int) -> list[Season]:
+        stmt = (
+            select(self.model)
+            .filter_by(anime_id=anime_id)
             .order_by(desc(self.model.id))
         )
         res = await self.session.execute(stmt)

@@ -10,8 +10,8 @@ from src.adapters.database.repositories import (
     ManagerRepository,
     NewsContentRepository,
     NewsRepository,
+    SeasonRepository,
 )
-
 
 class RepositoriesGatewayProtocol(Protocol):
     client: ClientRepository
@@ -20,6 +20,7 @@ class RepositoriesGatewayProtocol(Protocol):
     news_content: NewsContentRepository
     email_template: EmailTemplateRepository
     anime: AnimeRepository
+    seasons: SeasonRepository
 
     @abstractmethod
     def __init__(self, session: AsyncSession):
