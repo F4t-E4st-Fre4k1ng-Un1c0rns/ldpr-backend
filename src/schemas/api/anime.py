@@ -1,6 +1,7 @@
 from pydantic import BaseModel, ConfigDict, field_validator
 from pydantic.alias_generators import to_camel
 
+from src.schemas.api.seasons import SeasonInfo
 from src.settings import settings
 
 
@@ -24,6 +25,7 @@ class AnimeInfo(BaseModel):
     name: str
     description: str
     poster_path: str
+    seasons: list[SeasonInfo]
 
     @field_validator("poster_path")
     @classmethod
