@@ -4,10 +4,10 @@ from src.adapters.database.models import Season
 from src.adapters.database.repositories import SeasonRepository
 from src.admin.override_fastadmin import CustomModelAdmin
 from src.schemas.admin.season import (
-    AnimeCreate,
-    AnimeGet,
-    AnimeList,
-    AnimeUpdate,
+    SeasonCreate,
+    SeasonGet,
+    SeasonList,
+    SeasonUpdate,
 )
 
 
@@ -15,10 +15,10 @@ from src.schemas.admin.season import (
 class SeasonAdmin(CustomModelAdmin):
     Season.__name__ = verbose_name = verbose_name_plural = "Сезон"
 
-    schemaCreate = AnimeCreate
-    schemaUpdate = AnimeUpdate
-    schemaGet = AnimeGet
-    schemaList = AnimeList
+    schemaCreate = SeasonCreate
+    schemaUpdate = SeasonUpdate
+    schemaGet = SeasonGet
+    schemaList = SeasonList
 
     model_repository = SeasonRepository
 
@@ -28,18 +28,20 @@ class SeasonAdmin(CustomModelAdmin):
 
     search_fields = ("number",)
 
+    raw_id_fields = ("anime_id",)
+
     fieldsets = (
         (
             None,
             {
                 "fields": (
                     "number",
-                    "anime_id",
+                    "anime",
                 )
             },
         ),
     )
     formfield_overrides = {
         "number": (WidgetType.InputNumber, {"required": True}),
-        "anime_id": (WidgetType.InputNumber, {"required": True}),
+        # "anime_id": (WidgetType.InputNumber, {"required": True}),
     }

@@ -3,22 +3,22 @@ from fastadmin import WidgetType, register
 from src.adapters.database.models import Episode
 from src.adapters.database.repositories import EpisodeRepository
 from src.admin.override_fastadmin import CustomModelAdmin
-# from src.schemas.admin.season import (
-#     AnimeCreate,
-#     AnimeGet,
-#     AnimeList,
-#     AnimeUpdate,
-# )
+from src.schemas.admin.episode import (
+    EpisodeCreate,
+    EpisodeGet,
+    EpisodeList,
+    EpisodeUpdate,
+)
 
 
 @register(Episode)
 class EpisodeAdmin(CustomModelAdmin):
     Episode.__name__ = verbose_name = verbose_name_plural = "Эпизод"
 
-    # schemaCreate = AnimeCreate
-    # schemaUpdate = AnimeUpdate
-    # schemaGet = AnimeGet
-    # schemaList = AnimeList
+    schemaCreate = EpisodeCreate
+    schemaUpdate = EpisodeUpdate
+    schemaGet = EpisodeGet
+    schemaList = EpisodeList
 
     model_repository = EpisodeRepository
 
