@@ -12,8 +12,5 @@ class SeasonService:
 
     def _map_output(self, models):
         return SeasonOutput(
-            items=[
-                SeasonInfo(number=i.number)
-                for i in models
-            ]
+            items=[]
         )
