@@ -419,73 +419,57 @@ ALTER TABLE ONLY public.seasons ALTER COLUMN id SET DEFAULT nextval('public.seas
 -- Data for Name: alembic_version; Type: TABLE DATA; Schema: public; Owner: hello
 --
 
-COPY public.alembic_version (version_num) FROM stdin;
-72aecf9c7a54
-\.
+INSERT INTO public.alembic_version (version_num) VALUES ('72aecf9c7a54');
 
 
 --
 -- Data for Name: anime; Type: TABLE DATA; Schema: public; Owner: hello
 --
 
-COPY public.anime (id, name, description, poster_path) FROM stdin;
-\.
 
 
 --
 -- Data for Name: clients; Type: TABLE DATA; Schema: public; Owner: hello
 --
 
-COPY public.clients (id, client_type, phone, password, manager_id, first_name, second_name, email, city, address, organization_name, inn, create_date, modify_date) FROM stdin;
-\.
+INSERT INTO public.clients (id, client_type, phone, password, manager_id, first_name, second_name, email, city, address, organization_name, inn, create_date, modify_date) VALUES (0, 'individ', '1', '$2b$12$.qsSV/22Xr2FEQcSwW.tmOYdOW5OfeEkYOmAKBvwryDHw85I8xZXi', 1, '1', '1', '1@gmail.com', '1', '1', NULL, NULL, '2025-04-01 11:14:26.979+00', '2025-04-10 11:14:32.577+00');
 
 
 --
 -- Data for Name: emailTemplates; Type: TABLE DATA; Schema: public; Owner: hello
 --
 
-COPY public."emailTemplates" (id, type, title, text) FROM stdin;
-\.
 
 
 --
 -- Data for Name: episodes; Type: TABLE DATA; Schema: public; Owner: hello
 --
 
-COPY public.episodes (id, season_id, number, name, path) FROM stdin;
-\.
 
 
 --
 -- Data for Name: managers; Type: TABLE DATA; Schema: public; Owner: hello
 --
 
-COPY public.managers (role, first_name, second_name, phone, email, password, id) FROM stdin;
-\.
+INSERT INTO public.managers (role, first_name, second_name, phone, email, password, id) VALUES ('admin', '1', '1', '1', '1', '$2b$12$.qsSV/22Xr2FEQcSwW.tmOYdOW5OfeEkYOmAKBvwryDHw85I8xZXi', 1);
 
 
 --
 -- Data for Name: news; Type: TABLE DATA; Schema: public; Owner: hello
 --
 
-COPY public.news (id, title, text, publish_date, images) FROM stdin;
-\.
 
 
 --
 -- Data for Name: newsContents; Type: TABLE DATA; Schema: public; Owner: hello
 --
 
-COPY public."newsContents" (news_id, id, name, uri, comment, create_date, modify_date) FROM stdin;
-\.
 
 
 --
 -- Data for Name: seasons; Type: TABLE DATA; Schema: public; Owner: hello
 --
 
-COPY public.seasons (id, anime_id, number) FROM stdin;
-\.
 
 
 --
@@ -499,7 +483,7 @@ SELECT pg_catalog.setval('public.anime_id_seq', 1, false);
 -- Name: clients_id_seq; Type: SEQUENCE SET; Schema: public; Owner: hello
 --
 
-SELECT pg_catalog.setval('public.clients_id_seq', 1, false);
+SELECT pg_catalog.setval('public.clients_id_seq', 1, true);
 
 
 --

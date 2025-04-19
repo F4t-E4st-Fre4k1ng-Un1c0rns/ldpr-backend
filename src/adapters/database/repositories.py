@@ -1,6 +1,6 @@
 from sqlalchemy import asc, desc, select
 
-from src.adapters.database.models.anime import Anime, Season
+from src.adapters.database.models.anime import Anime, Season, Episode
 from src.adapters.database.models.managers import Role
 from src.utils.repository import (
     SQLAlchemyRepository,
@@ -81,4 +81,7 @@ class SeasonRepository(SQLAlchemyRepository):
         )
         res = await self.session.execute(stmt)
         return list(res.unique().scalars().fetchall())
-        
+
+
+class EpisodeRepository(SQLAlchemyRepository):
+    model = Episode
