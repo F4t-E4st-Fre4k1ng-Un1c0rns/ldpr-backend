@@ -85,3 +85,11 @@ class SeasonRepository(SQLAlchemyRepository):
 
 class EpisodeRepository(SQLAlchemyRepository):
     model = Episode
+    async def list_episodes(self, season_id: int) -> list[Episode]:
+        stmt = (
+            select(self.model)
+            .filter_by(season_id=season_id)
+            .order_by(desc(self.model.id))
+        )
+        res = await self.session.execute(stmt)
+        return list(res.unique().scalars().fetchall())

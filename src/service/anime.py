@@ -1,5 +1,4 @@
-from src.schemas.api.anime import AnimeInfo, AnimeOutput
-from src.schemas.api.seasons import SeasonInfo
+from src.schemas.api.anime import AnimeInfo, AnimeOutput, AnimeSeasons
 from src.unit_of_work import UnitOfWork
 
 
@@ -15,8 +14,15 @@ class AnimeService:
         return AnimeOutput(
             items=[
                 AnimeInfo(
-                    name=i.name, description=i.description, poster_path=i.poster_path,
-                    seasons=[SeasonInfo(id = i.id, number=i.number) for i in await self.uow.repositories.seasons.list_seasons(models.id)]
+                    name=i.name,
+                    description=i.description,
+                    poster_path=i.poster_path,
+                    seasons=[
+                        AnimeSeasons(id=i.id, number=i.number)
+                        for i in await self.uow.repositories.seasons.list_seasons(
+                            models.id
+                        )
+                    ],
                 )
                 for i in models
             ]

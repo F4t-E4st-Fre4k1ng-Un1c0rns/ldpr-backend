@@ -18,7 +18,7 @@ async def get_all_anime_list(
     async with uow:
         return await AnimeService(uow).list_anime()
 
-@anime_router.get("/anime/{id}", response_model=SeasonOutput)
+@anime_router.get("/season/{id}", response_model=SeasonOutput)
 async def get_all_seasons_list(
     uow: Annotated[UnitOfWork, Depends(UnitOfWork)],
     id: int
