@@ -1,35 +1,42 @@
 name: hackaton-backend
 
 services:
-  # backend:
-  #   container_name: backend
-  #   restart: always
-  #   build: .
-  #   env_file: .env
-  #   ports:
-  #     - 8000:8000
-  #   environment:
-  #     JWT_SECRET: ${JWT_SECRET}
-  #     JWT_TOKEN_LIFETIME: ${JWT_TOKEN_LIFETIME}
-  #     POSTGRES_HOST: ${POSTGRES_HOST}
-  #     POSTGRES_DB: ${POSTGRES_DB}
-  #     POSTGRES_USER: ${POSTGRES_USER}
-  #     POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+  backend:
+    container_name: backend
+    restart: always
+    build: .
+    env_file: .env
+    ports:
+      - 8000:8000
 
-  #     S3_USER_HOST: ${S3_USER_HOST}
-  #     S3_API_HOST: ${S3_API_HOST}
-  #     S3_ACCESS_KEY: ${S3_ACCESS_KEY}
-  #     S3_SECRET_KEY: ${S3_SECRET_KEY}
-  #     S3_BUCKET_NAME: ${S3_BUCKET_NAME}
+    develop:
+      watch:
+        - action: sync
+          path: src
+          target: /backend/src
 
-  #     ADMIN_USER_MODEL: ${ADMIN_USER_MODEL}
-  #     ADMIN_USER_MODEL_USERNAME_FIELD: ${ADMIN_USER_MODEL_USERNAME_FIELD}
-  #     ADMIN_SECRET_KEY: ${ADMIN_SECRET_KEY}
+    environment:
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_TOKEN_LIFETIME: ${JWT_TOKEN_LIFETIME}
+      POSTGRES_HOST: ${POSTGRES_HOST}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
 
-  #     MAIL_HOST: ${MAIL_HOST}
-  #     MAIL_PORT: ${MAIL_PORT}
-  #     MAIL_LOGIN: ${MAIL_LOGIN}
-  #     MAIL_PASSWORD: ${MAIL_PASSWORD}
+      S3_USER_HOST: ${S3_USER_HOST}
+      S3_API_HOST: ${S3_API_HOST}
+      S3_ACCESS_KEY: ${S3_ACCESS_KEY}
+      S3_SECRET_KEY: ${S3_SECRET_KEY}
+      S3_BUCKET_NAME: ${S3_BUCKET_NAME}
+
+      ADMIN_USER_MODEL: ${ADMIN_USER_MODEL}
+      ADMIN_USER_MODEL_USERNAME_FIELD: ${ADMIN_USER_MODEL_USERNAME_FIELD}
+      ADMIN_SECRET_KEY: ${ADMIN_SECRET_KEY}
+
+      MAIL_HOST: ${MAIL_HOST}
+      MAIL_PORT: ${MAIL_PORT}
+      MAIL_LOGIN: ${MAIL_LOGIN}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
       
 
   database:
@@ -39,7 +46,6 @@ services:
     env_file: .env
     volumes:
       - ./dumps/testing.sql:/docker-entrypoint-initdb.d/testing.sql
-      - postgres-data:/var/lib/postgresql/data
     healthcheck:
       test: pg_isready -d udom
       interval: 60s
@@ -59,8 +65,6 @@ services:
     env_file: .env
     command: |
       server --console-address ":9001" /data
-    volumes:
-      - s3-data:/data
     healthcheck:
       test: mc ready local
       interval: 60s
@@ -93,9 +97,3 @@ services:
       /usr/bin/mc admin user svcacct add --access-key "$$S3_ACCESS_KEY" --secret-key "$$S3_SECRET_KEY" s3service $$MINIO_ROOT_USER;
       exit 0;
       "
-
-volumes:
-  s3-data:
-    name: s3-data
-  postgres-data:
-    name: postgres-data

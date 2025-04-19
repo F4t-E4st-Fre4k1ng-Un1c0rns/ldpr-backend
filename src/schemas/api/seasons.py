@@ -4,28 +4,22 @@ from pydantic.alias_generators import to_camel
 from src.settings import settings
 
 
-class AnimeOutput(BaseModel):
+class SeasonOutput(BaseModel):
     model_config = ConfigDict(
         alias_generator=to_camel,
         from_attributes=True,
         populate_by_name=True,
     )
-    items: list["AnimeInfo"]
+    items: list["SeasonInfo"]
 
 
 
-class AnimeInfo(BaseModel):
+class SeasonInfo(BaseModel):
     model_config = ConfigDict(
         alias_generator=to_camel,
         from_attributes=True,
         populate_by_name=True,
     )
 
-    name: str
-    description: str
-    poster_path: str
+    number: int
 
-    @field_validator("poster_path")
-    @classmethod
-    def make_url(cls, banner_path: str) -> str:
-        return settings.s3_url + banner_path
