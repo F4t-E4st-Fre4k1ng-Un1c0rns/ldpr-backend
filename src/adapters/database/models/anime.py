@@ -24,7 +24,7 @@ class Season(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True,autoincrement=True)
     anime_id: Mapped[int] = mapped_column(ForeignKey(Anime.id))
-    anime: Mapped[Anime] = relationship(lazy="selectin")
+    anime: Mapped[Anime] = relationship(lazy="selectin", back_populates="seasons")
     number: Mapped[int]
 
     def __str__(self):
