@@ -4,6 +4,7 @@ from src.adapters.database.repositories import (
     AnimeRepository,
     ClientRepository,
     EmailTemplateRepository,
+    EpisodeRepository,
     ManagerRepository,
     NewsContentRepository,
     NewsRepository,
@@ -21,3 +22,4 @@ class RepositoriesGateway(RepositoriesGatewayProtocol):
         self.email_template = EmailTemplateRepository(session)
         self.anime = AnimeRepository(session)
         self.seasons = SeasonRepository(session)
+        self.episodes = EpisodeRepository(session)

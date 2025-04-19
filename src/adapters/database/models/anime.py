@@ -26,6 +26,7 @@ class Season(Base):
     anime_id: Mapped[str] = mapped_column(ForeignKey(Anime.id))
     number: Mapped[int]
 
+
 class Episode(Base):
     __tablename__ = "episodes"
     id: Mapped[int] = mapped_column(primary_key=True,autoincrement=True)

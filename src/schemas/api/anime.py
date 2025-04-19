@@ -1,7 +1,6 @@
 from pydantic import BaseModel, ConfigDict, field_validator
 from pydantic.alias_generators import to_camel
 
-from src.schemas.api.seasons import SeasonInfo
 from src.settings import settings
 
 
@@ -25,9 +24,18 @@ class AnimeInfo(BaseModel):
     name: str
     description: str
     poster_path: str
-    seasons: list[SeasonInfo]
+    seasons: list["AnimeSeasons"]
 
     @field_validator("poster_path")
     @classmethod
     def make_url(cls, banner_path: str) -> str:
         return settings.s3_url + banner_path
+
+class AnimeSeasons(BaseModel):
+    model_config = ConfigDict(
+        alias_generator=to_camel,
+        from_attributes=True,
+        populate_by_name=True,
+    )
+    id: int
+    number: int

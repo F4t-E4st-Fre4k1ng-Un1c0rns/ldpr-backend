@@ -7,6 +7,7 @@ from src.adapters.database.repositories import (
     AnimeRepository,
     ClientRepository,
     EmailTemplateRepository,
+    EpisodeRepository,
     ManagerRepository,
     NewsContentRepository,
     NewsRepository,
@@ -21,6 +22,7 @@ class RepositoriesGatewayProtocol(Protocol):
     email_template: EmailTemplateRepository
     anime: AnimeRepository
     seasons: SeasonRepository
+    episodes: EpisodeRepository
 
     @abstractmethod
     def __init__(self, session: AsyncSession):
